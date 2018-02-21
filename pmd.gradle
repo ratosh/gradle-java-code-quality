@@ -1,0 +1,41 @@
+def pmdReportConverter(inputFile, outputFile) {
+    reportConverter(inputFile, new File("$rootDir/config/pmd/pmd-report.xslt"), outputFile)
+}
+
+allprojects {
+    apply plugin: 'pmd'
+
+    pmd {
+        sourceSets = [sourceSets.main, sourceSets.test]
+        ignoreFailures = false
+        ruleSetFiles = files("$rootDir/config/pmd/pmd-rulesets.xml")
+    }
+
+    task pmdMainReport {
+        doLast {
+            pmdReportConverter(pmdMain.reports.xml.destination, new File(pmdMain.reports.xml.destination.parent, 'main.html'))
+        }
+    }
+
+    pmdMain {
+        reports {
+            xml.enabled true
+            html.enabled false
+        }
+        finalizedBy pmdMainReport
+    }
+
+    task pmdTestReport {
+        doLast {
+            pmdReportConverter(pmdTest.reports.xml.destination, new File(pmdTest.reports.xml.destination.parent, 'test.html'))
+        }
+    }
+
+    pmdTest {
+        reports {
+            xml.enabled true
+            html.enabled false
+        }
+        finalizedBy pmdTestReport
+    }
+}

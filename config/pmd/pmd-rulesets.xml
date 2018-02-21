@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruleset name="Loki" xmlns="http://pmd.sf.net/ruleset/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+  xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+  <description>PMD rule set to check code for errors and bad habits</description>
+
+  <rule ref="rulesets/java/android.xml"/>
+
+  <rule ref="rulesets/java/basic.xml"/>
+
+  <rule ref="rulesets/java/braces.xml"/>
+
+  <rule ref="rulesets/java/clone.xml"/>
+
+  <rule ref="rulesets/java/comments.xml">
+    <exclude name="CommentRequired"/>
+  </rule>
+  <rule ref="rulesets/java/comments.xml/CommentSize">
+    <properties>
+      <property name="maxLineLength" value="100"/>
+      <property name="maxLines" value="20"/>
+    </properties>
+  </rule>
+
+  <rule ref="rulesets/java/controversial.xml">
+    <exclude name="AtLeastOneConstructor"/>
+    <exclude name="OnlyOneReturn"/>
+    <exclude name="DataflowAnomalyAnalysis"/>
+    <exclude name="UseConcurrentHashMap"/>
+  </rule>
+
+  <rule ref="rulesets/java/coupling.xml">
+    <exclude name="LoosePackageCoupling"/>
+    <exclude name="LawOfDemeter"/>
+  </rule>
+
+  <rule ref="rulesets/java/design.xml">
+    <exclude name="ConfusingTernary"/>
+    <exclude name="UseLocaleWithCaseConversions"/>
+    <exclude name="AbstractClassWithoutAbstractMethod"/>
+    <exclude name="AccessorMethodGeneration"/>
+    <exclude name="AccessorClassGeneration"/>
+    <exclude name="AvoidDeeplyNestedIfStmts"/>
+  </rule>
+
+  <rule ref="rulesets/java/empty.xml"/>
+
+  <rule ref="rulesets/java/finalizers.xml"/>
+
+  <rule ref="rulesets/java/imports.xml"/>
+
+  <rule ref="rulesets/java/j2ee.xml"/>
+
+  <rule ref="rulesets/java/junit.xml"/>
+
+  <rule ref="rulesets/java/logging-jakarta-commons.xml"/>
+
+  <rule ref="rulesets/java/logging-java.xml"/>
+
+  <rule ref="rulesets/java/migrating.xml"/>
+
+  <rule ref="rulesets/java/naming.xml"/>
+  <rule ref="rulesets/java/naming.xml/LongVariable">
+    <properties>
+      <property name="minimum" value="40"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/java/naming.xml/ShortVariable">
+    <properties>
+      <property name="minimum" value="2"/>
+    </properties>
+  </rule>
+
+  <rule ref="rulesets/java/optimizations.xml">
+    <exclude name="AvoidInstantiatingObjectsInLoops"/>
+  </rule>
+
+  <rule ref="rulesets/java/strictexception.xml"/>
+
+  <rule ref="rulesets/java/strings.xml"/>
+
+  <rule ref="rulesets/java/sunsecure.xml"/>
+
+  <rule ref="rulesets/java/typeresolution.xml"/>
+
+  <rule ref="rulesets/java/unnecessary.xml"/>
+
+  <rule ref="rulesets/java/unusedcode.xml"/>
+
+</ruleset>
+

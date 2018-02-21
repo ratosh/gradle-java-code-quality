@@ -1,0 +1,43 @@
+def csReportConverter(inputFile, outputFile) {
+    reportConverter(inputFile,
+            new File("${project.rootDir}/config/checkstyle/checkstyle-noframes-sorted.xsl"),
+            outputFile)
+}
+
+allprojects {
+    apply plugin: 'checkstyle'
+
+    checkstyle {
+        configFile = new File("${project.rootDir}/config/checkstyle/google_checks.xml")
+        toolVersion = "8.4"
+        ignoreFailures = false
+    }
+
+    task checkstyleMainHtml {
+        doLast {
+            csReportConverter(checkstyleMain.reports.xml.destination, new File(checkstyleMain.reports.xml.destination.parent, "main.html"))
+        }
+    }
+
+    checkstyleMain {
+        reports {
+            xml.enabled true
+            html.enabled false
+        }
+        finalizedBy checkstyleMainHtml
+    }
+
+    task checkstyleTestHtml {
+        doLast {
+            csReportConverter(checkstyleTest.reports.xml.destination, new File(checkstyleTest.reports.xml.destination.parent, "test.html"))
+        }
+    }
+
+    checkstyleTest {
+        reports {
+            xml.enabled true
+            html.enabled false
+        }
+        finalizedBy checkstyleTestHtml
+    }
+}

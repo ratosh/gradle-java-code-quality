@@ -1,0 +1,50 @@
+def findbugsReportConverter(inputFile, outputFile) {
+    reportConverter(inputFile, new File("$rootDir/config/findbugs/findbugs-report.xsl"), outputFile)
+}
+
+allprojects {
+    apply plugin: 'findbugs'
+
+    dependencies {
+        // https://mvnrepository.com/artifact/com.google.code.findbugs/annotations
+        compile group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.1'
+    }
+
+    findbugs {
+        toolVersion = '3.0.1'
+        ignoreFailures = false
+        effort = 'max'
+        excludeFilter = file("${project.rootDir}/config/findbugs/excludeFilter.xml")
+    }
+
+    task findbugsMainReport {
+        doLast {
+            findbugsReportConverter(findbugsMain.reports.xml.destination, new File(findbugsMain.reports.xml.destination.parent, 'main.html'))
+        }
+    }
+
+    findbugsMain {
+        reports {
+            xml.enabled true
+            xml.withMessages true
+            html.enabled false
+        }
+        finalizedBy findbugsMainReport
+    }
+
+    task findbugsTestReport {
+        doLast {
+            findbugsReportConverter(findbugsTest.reports.xml.destination, new File(findbugsTest.reports.xml.destination.parent, 'test.html'))
+        }
+    }
+
+    findbugsTest {
+        reports {
+            xml.enabled true
+            xml.withMessages true
+            html.enabled false
+        }
+        finalizedBy findbugsTestReport
+    }
+
+}
